@@ -272,10 +272,14 @@ export default function Home() {
                   </select>
                 </label>
                 <label className="full">
+                  期望到店时间
+                  <input type="datetime-local" name="arrivalTime" />
+                </label>
+                <label className="full">
                   备注
                   <textarea
                     name="note"
-                    placeholder="例如体重、毛量、是否怕水、希望预约的时间"
+                    placeholder="例如体重、毛量、是否怕水、有无皮肤敏感"
                   />
                 </label>
                 <button className="button full" type="submit">
