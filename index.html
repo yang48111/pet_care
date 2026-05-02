@@ -418,19 +418,72 @@
     }
 
     .reviews {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      position: relative;
+      overflow: hidden;
+      padding: 8px 0 18px;
+      mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    }
+
+    .reviews-track {
+      display: flex;
+      width: max-content;
       gap: 18px;
+      animation: reviews-scroll 42s linear infinite;
+    }
+
+    .reviews:hover .reviews-track {
+      animation-play-state: paused;
     }
 
     .review {
+      display: flex;
+      flex: 0 0 340px;
+      min-height: 230px;
+      flex-direction: column;
+      justify-content: space-between;
       padding: 24px;
+      transition:
+        transform 180ms ease,
+        box-shadow 180ms ease;
+    }
+
+    .review:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+
+    .stars {
+      margin-bottom: 14px;
+      color: var(--coral);
+      font-size: 15px;
+      letter-spacing: 0;
     }
 
     .review strong {
       display: block;
-      margin-top: 18px;
       color: var(--ink);
+    }
+
+    .review-footer {
+      display: grid;
+      gap: 2px;
+      margin-top: 22px;
+    }
+
+    .review-footer span {
+      color: var(--mint-deep);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    @keyframes reviews-scroll {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(calc(-50% - 9px));
+      }
     }
 
     .booking {
@@ -526,10 +579,19 @@
 
       .services-grid,
       .prices,
-      .reviews,
       .why,
       .booking-grid {
         grid-template-columns: 1fr;
+      }
+
+      .reviews {
+        margin-right: -20px;
+        margin-left: -20px;
+        padding-left: 20px;
+      }
+
+      .review {
+        flex-basis: min(78vw, 340px);
       }
 
       .why-photo {
@@ -575,6 +637,22 @@
 
       .footer .wrap {
         display: grid;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reviews {
+        overflow-x: auto;
+        mask-image: none;
+        scroll-snap-type: x mandatory;
+      }
+
+      .reviews-track {
+        animation: none;
+      }
+
+      .review {
+        scroll-snap-align: start;
       }
     }
   </style>
@@ -732,19 +810,137 @@
             <h2>主人们的真实反馈。</h2>
             <p>每只宠物的性格都不同，稳定的照顾细节才最让人放心。</p>
           </div>
-          <div class="reviews">
-            <article class="review">
-              <p>“我家狗狗以前很怕吹风，这次洗完精神很好，毛也顺了很多。”</p>
-              <strong>柚子妈妈</strong>
-            </article>
-            <article class="review">
-              <p>“猫咪胆子小，店里安排了单独时段，过程很耐心，回家没有应激。”</p>
-              <strong>团团爸爸</strong>
-            </article>
-            <article class="review">
-              <p>“修剪前会沟通想要的长度，洗后还会说哪里有皮屑和打结，很专业。”</p>
-              <strong>奶茶主人</strong>
-            </article>
+          <div class="reviews" aria-label="客户评价轮播">
+            <div class="reviews-track">
+              <article class="review">
+                <div class="stars" aria-label="五星评价">★★★★★</div>
+                <p>“我家狗狗以前很怕吹风，这次洗完精神很好，毛也顺了很多。”</p>
+                <div class="review-footer">
+                  <strong>柚子妈妈</strong>
+                  <span>比熊 · 基础洗护</span>
+                </div>
+              </article>
+              <article class="review">
+                <div class="stars" aria-label="五星评价">★★★★★</div>
+                <p>“猫咪胆子小，店里安排了单独时段，过程很耐心，回家没有应激。”</p>
+                <div class="review-footer">
+                  <strong>团团爸爸</strong>
+                  <span>英短 · 猫咪专护</span>
+                </div>
+              </article>
+              <article class="review">
+                <div class="stars" aria-label="五星评价">★★★★★</div>
+                <p>“修剪前会沟通想要的长度，洗后还会说哪里有皮屑和打结，很专业。”</p>
+                <div class="review-footer">
+                  <strong>奶茶主人</strong>
+                  <span>泰迪 · 精修造型</span>
+                </div>
+              </article>
+              <article class="review">
+                <div class="stars" aria-label="五星评价">★★★★★</div>
+                <p>“第一次来就把毛结处理得很细，洗护师还教了回家怎么梳，真的很省心。”</p>
+                <div class="review-footer">
+                  <strong>布丁姐姐</strong>
+                  <span>金渐层 · 皮毛护理</span>
+                </div>
+              </article>
+              <article class="review">
+                <div class="stars" aria-label="五星评价">★★★★★</div>
+                <p>“店里没有刺鼻香味，工具和毛巾都分开用，接毛孩子的时候状态特别放松。”</p>
+                <div class="review-footer">
+                  <strong>豆包爸爸</strong>
+                  <span>柴犬 · 日常洗护</span>
+                </div>
+              </article>
+              <article class="review">
+                <div class="stars" aria-label="五星评价">★★★★★</div>
+                <p>“预约时间卡得很准，不用长时间等候。造型修得自然，拍照都更上镜了。”</p>
+                <div class="review-footer">
+                  <strong>米粒妈妈</strong>
+                  <span>约克夏 · 精致焕新</span>
+                </div>
+              </article>
+              <article class="review">
+                <div class="stars" aria-label="五星评价">★★★★★</div>
+                <p>“老年犬腿脚不太好，洗护师动作很轻，还会中途休息，细节很让人安心。”</p>
+                <div class="review-footer">
+                  <strong>多多主人</strong>
+                  <span>柯基 · 温和护理</span>
+                </div>
+              </article>
+              <article class="review">
+                <div class="stars" aria-label="五星评价">★★★★★</div>
+                <p>“洗完会把耳朵、皮肤和指甲情况讲清楚，比单纯洗干净更像一次护理记录。”</p>
+                <div class="review-footer">
+                  <strong>小满妈妈</strong>
+                  <span>边牧 · 全套洗护</span>
+                </div>
+              </article>
+              <article class="review" aria-hidden="true">
+                <div class="stars" aria-label="五星评价">★★★★★</div>
+                <p>“我家狗狗以前很怕吹风，这次洗完精神很好，毛也顺了很多。”</p>
+                <div class="review-footer">
+                  <strong>柚子妈妈</strong>
+                  <span>比熊 · 基础洗护</span>
+                </div>
+              </article>
+              <article class="review" aria-hidden="true">
+                <div class="stars" aria-label="五星评价">★★★★★</div>
+                <p>“猫咪胆子小，店里安排了单独时段，过程很耐心，回家没有应激。”</p>
+                <div class="review-footer">
+                  <strong>团团爸爸</strong>
+                  <span>英短 · 猫咪专护</span>
+                </div>
+              </article>
+              <article class="review" aria-hidden="true">
+                <div class="stars" aria-label="五星评价">★★★★★</div>
+                <p>“修剪前会沟通想要的长度，洗后还会说哪里有皮屑和打结，很专业。”</p>
+                <div class="review-footer">
+                  <strong>奶茶主人</strong>
+                  <span>泰迪 · 精修造型</span>
+                </div>
+              </article>
+              <article class="review" aria-hidden="true">
+                <div class="stars" aria-label="五星评价">★★★★★</div>
+                <p>“第一次来就把毛结处理得很细，洗护师还教了回家怎么梳，真的很省心。”</p>
+                <div class="review-footer">
+                  <strong>布丁姐姐</strong>
+                  <span>金渐层 · 皮毛护理</span>
+                </div>
+              </article>
+              <article class="review" aria-hidden="true">
+                <div class="stars" aria-label="五星评价">★★★★★</div>
+                <p>“店里没有刺鼻香味，工具和毛巾都分开用，接毛孩子的时候状态特别放松。”</p>
+                <div class="review-footer">
+                  <strong>豆包爸爸</strong>
+                  <span>柴犬 · 日常洗护</span>
+                </div>
+              </article>
+              <article class="review" aria-hidden="true">
+                <div class="stars" aria-label="五星评价">★★★★★</div>
+                <p>“预约时间卡得很准，不用长时间等候。造型修得自然，拍照都更上镜了。”</p>
+                <div class="review-footer">
+                  <strong>米粒妈妈</strong>
+                  <span>约克夏 · 精致焕新</span>
+                </div>
+              </article>
+              <article class="review" aria-hidden="true">
+                <div class="stars" aria-label="五星评价">★★★★★</div>
+                <p>“老年犬腿脚不太好，洗护师动作很轻，还会中途休息，细节很让人安心。”</p>
+                <div class="review-footer">
+                  <strong>多多主人</strong>
+                  <span>柯基 · 温和护理</span>
+                </div>
+              </article>
+              <article class="review" aria-hidden="true">
+                <div class="stars" aria-label="五星评价">★★★★★</div>
+                <p>“洗完会把耳朵、皮肤和指甲情况讲清楚，比单纯洗干净更像一次护理记录。”</p>
+                <div class="review-footer">
+                  <strong>小满妈妈</strong>
+                  <span>边牧 · 全套洗护</span>
+                </div>
+              </article>
+            </div>
           </div>
         </div>
       </section>

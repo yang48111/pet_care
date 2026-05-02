@@ -70,14 +70,42 @@ const reviews = [
   {
     text: "“我家狗狗以前很怕吹风，这次洗完精神很好，毛也顺了很多。”",
     author: "柚子妈妈",
+    pet: "比熊 · 基础洗护",
   },
   {
     text: "“猫咪胆子小，店里安排了单独时段，过程很耐心，回家没有应激。”",
     author: "团团爸爸",
+    pet: "英短 · 猫咪专护",
   },
   {
     text: "“修剪前会沟通想要的长度，洗后还会说哪里有皮屑和打结，很专业。”",
     author: "奶茶主人",
+    pet: "泰迪 · 精修造型",
+  },
+  {
+    text: "“第一次来就把毛结处理得很细，洗护师还教了回家怎么梳，真的很省心。”",
+    author: "布丁姐姐",
+    pet: "金渐层 · 皮毛护理",
+  },
+  {
+    text: "“店里没有刺鼻香味，工具和毛巾都分开用，接毛孩子的时候状态特别放松。”",
+    author: "豆包爸爸",
+    pet: "柴犬 · 日常洗护",
+  },
+  {
+    text: "“预约时间卡得很准，不用长时间等候。造型修得自然，拍照都更上镜了。”",
+    author: "米粒妈妈",
+    pet: "约克夏 · 精致焕新",
+  },
+  {
+    text: "“老年犬腿脚不太好，洗护师动作很轻，还会中途休息，细节很让人安心。”",
+    author: "多多主人",
+    pet: "柯基 · 温和护理",
+  },
+  {
+    text: "“洗完会把耳朵、皮肤和指甲情况讲清楚，比单纯洗干净更像一次护理记录。”",
+    author: "小满妈妈",
+    pet: "边牧 · 全套洗护",
   },
 ];
 
@@ -219,13 +247,25 @@ export default function Home() {
               <h2>主人们的真实反馈。</h2>
               <p>每只宠物的性格都不同，稳定的照顾细节才最让人放心。</p>
             </div>
-            <div className="reviews">
-              {reviews.map((review) => (
-                <article className="review" key={review.author}>
-                  <p>{review.text}</p>
-                  <strong>{review.author}</strong>
-                </article>
-              ))}
+            <div className="reviews" aria-label="客户评价轮播">
+              <div className="reviews-track">
+                {[...reviews, ...reviews].map((review, index) => (
+                  <article
+                    className="review"
+                    key={`${review.author}-${index}`}
+                    aria-hidden={index >= reviews.length}
+                  >
+                    <div className="stars" aria-label="五星评价">
+                      ★★★★★
+                    </div>
+                    <p>{review.text}</p>
+                    <div className="review-footer">
+                      <strong>{review.author}</strong>
+                      <span>{review.pet}</span>
+                    </div>
+                  </article>
+                ))}
+              </div>
             </div>
           </div>
         </section>
